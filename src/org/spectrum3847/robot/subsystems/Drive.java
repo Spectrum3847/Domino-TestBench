@@ -30,6 +30,7 @@ public class Drive extends Subsystem {
     public SpectrumSpeedController m_right_cims;
     public SpectrumSpeedController m_right_775;
     
+    public boolean areEnabled775;
     
     public SpectrumSpeedController m_left_motor;
     public SpectrumSpeedController m_right_motor;
@@ -54,7 +55,9 @@ public class Drive extends Subsystem {
     	this.m_right_cims = right_drive_CIMs;
     	this.m_right_775 = right_drive_775;
     	
-    	System.out.println("DRIVE INSTATIATED");
+    	this.areEnabled775 = false;
+    	
+    	//System.out.println("DRIVE INSTATIATED");
     	
     }
     
@@ -137,10 +140,17 @@ public class Drive extends Subsystem {
         
           this.setOpenLoop(new DriveSignal(leftMotorSpeed, rightMotorSpeed));
     	
-          System.out.println("THIS IS THE TURBODRIVE METHOD IN DRIVE.JAVA. I HAVE PUSHED MOTOR SPEEDS");
+          //System.out.println("THIS IS THE TURBODRIVE METHOD IN DRIVE.JAVA. I HAVE PUSHED MOTOR SPEEDS");
           
     }
     
+    public void toggle775(boolean state){
+    	areEnabled775 = state;
+    }
+    
+    public boolean get775Enabled(){
+    	return areEnabled775;
+    }
     
     public void setDistanceSetpoint(double distance) {
         setDistanceSetpoint(distance, Constants.kDriveMaxSpeedInchesPerSec);
@@ -208,9 +218,15 @@ public class Drive extends Subsystem {
     //Theoretically the 775 control would actually just go here. Depends on how jank it is
     private void setDriveOutputs(DriveSignal signal) {
         m_left_cims.set(signal.leftMotor);
-        m_left_775.set(signal.leftMotor);
         m_right_cims.set(-signal.rightMotor);
-        m_right_775.set(signal.rightMotor);
+        if(areEnabled775){
+        	m_left_775.set(signal.leftMotor);
+        	m_right_775.set(-signal.rightMotor);
+        }
+        else{
+        	m_left_775.set(0);
+        	m_right_775.set(0);
+        }
     }
 
     private Pose getPoseToContinueFrom(boolean for_turn_controller) {
