@@ -1,7 +1,7 @@
 package org.spectrum3847.robot;
 
 import org.spectrum3847.robot.commands.TurboDrive;
-
+import org.spectrum3847.robot.Robot;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -19,6 +19,8 @@ public class Teleop {
         
         //Robot.compressor.start();
         //Robot.compressor.setClosedLoopControl(true);
+        
+        Robot.logger.openFile();
     }
 
     public static void periodic() {
@@ -29,6 +31,7 @@ public class Teleop {
         //Tank Drive
         //Robot.drive.setOpenLoop(new DriveSignal(HW.Driver_Gamepad.getLeftY(), HW.Driver_Gamepad.getRightY()));
         
+        Robot.logger.logAll();
     }
 
     public static void cancel() {
