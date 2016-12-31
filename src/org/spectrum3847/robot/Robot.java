@@ -6,6 +6,7 @@ import org.spectrum3847.lib.drivers.SpectrumEncoder;
 import org.spectrum3847.lib.drivers.SpectrumSpeedController;
 import org.spectrum3847.lib.drivers.SpectrumSpeedControllerCAN;
 import org.spectrum3847.lib.util.Debugger;
+import org.spectrum3847.lib.util.Logger;
 import org.spectrum3847.robot.commands.CANManualControl;
 import org.spectrum3847.robot.subsystems.Drive;
 import org.spectrum3847.robot.subsystems.MotorWithLimits;
@@ -26,6 +27,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	//logger
+	public static Logger logger;
 	
     //Add Debug flags
 	//You can have a flag for each subsystem, etc
@@ -114,6 +118,7 @@ public class Robot extends IterativeRobot {
     	setupSubsystems(); //This has to be before the OI is created on the next line
 		HW.oi = new OI();
         Dashboard.intializeDashboard();
+        logger = Logger.getInstance();
     }
     
     private static void initDebugger(){
