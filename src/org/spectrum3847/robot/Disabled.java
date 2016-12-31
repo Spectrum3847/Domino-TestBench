@@ -3,6 +3,7 @@ package org.spectrum3847.robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.spectrum3847.robot.Robot;
 
 /**
  * @author matthew
@@ -15,6 +16,7 @@ public class Disabled {
     public static void init() {
         Scheduler.getInstance().removeAll();
         //Init.sendCam.start();
+        Robot.logger.close();
     }
 
     //Periodic method called roughly once every 20ms
