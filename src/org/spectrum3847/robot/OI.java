@@ -3,6 +3,7 @@ package org.spectrum3847.robot;
 import org.spectrum3847.lib.drivers.Gamepad;
 import org.spectrum3847.robot.commands.CANRunAtSetpoint;
 import org.spectrum3847.robot.commands.SolenoidCommand;
+import org.spectrum3847.robot.commands.TurboToggle;
 
 
 /**
@@ -52,6 +53,11 @@ public class OI {
     								new CANRunAtSetpoint("Shooter at Setpoint PID",
     								Robot.shooter));	
     	*/
+    	
+    	//Toggle 775s enabled/disabled
+    	HW.Driver_Gamepad.getButton(Gamepad.B_BUTTON).toggleWhenPressed(
+    								new TurboToggle());
+    	
     	
     	
     }
