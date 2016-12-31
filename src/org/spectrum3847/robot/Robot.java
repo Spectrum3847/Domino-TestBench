@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
 	public static Compressor compressor;
 	
     public static void setupSubsystems(){
-    	compressor = new Compressor(0);
+    	//compressor = new Compressor(0);
 
     	
     	//MAKE A DRIVETRAIN
