@@ -16,10 +16,10 @@ import org.spectrum3847.robot.Robot;
 public class Logger {
    
     private BufferedWriter writer;
-    private boolean logging =false; 
+    private boolean logging = true; 
     private final String loggerBoolean = "Logging";
     private static Logger instance;
-    private String fileName ="";
+    private String fileName ="log";
     private final String SDFileName = "File Name: ";
     DriverStation ds;
     
@@ -40,12 +40,16 @@ public class Logger {
         this.logging= SmartDashboard.getBoolean(this.loggerBoolean);
         SmartDashboard.putString(this.SDFileName, this.fileName);
         this.fileName = SmartDashboard.getString(SDFileName);
-        File f = new File("/logs");
+        File f = new File("/home/lvuser/logs");
         if(!f.exists()) {
-        	f.mkdir();
+        	System.out.println("/logs did not exist!");
+        	System.out.println(f.mkdir());
+        }
+        else{
+        	System.out.println("/logs exists!");
         }
         
-    	File[] files = new File("/logs").listFiles();
+    	File[] files = new File("/home/lvuser/logs").listFiles();
     	if(files != null) {
 	        for(File file : files) {
 	            if(file.isFile()) {
@@ -76,22 +80,24 @@ public class Logger {
 	            e.printStackTrace();
 	        }
     	}
+    	System.out.println("File opened.");
     }
     
     private String getPath() {
     	this.fileName = SmartDashboard.getString(SDFileName);
         if(this.ds.isFMSAttached()) {
-            return String.format("/logs/%d_%s_%d_log.txt", ++this.max, this.ds.getAlliance().name(), this.ds.getLocation());
+            return String.format("/home/lvuser/logs/%d_%s_%d_log.txt", ++this.max, this.ds.getAlliance().name(), this.ds.getLocation());
         }else if(this.fileName != null){ 
-        	return String.format("/logs/%d_%s.txt",++this.max,this.fileName);
+        	return String.format("/home/lvuser/logs/%d_%s.txt",++this.max,this.fileName);
         }else {
-            return String.format("/logs/%d_log.txt", ++this.max);
+            return String.format("/home/lvuser/logs/%d_log.txt", ++this.max);
         }
     }
    
     public void logAll() {
     	if(this.wantToLog()){
 	        try {
+	        	//System.out.println("LOGGING DATA");
 	        	double time = Timer.getFPGATimestamp();
 	        	
 	        	//Voltage, Currents, Brownout States, Motor Speed Settings, 775 Pro enable/disable
@@ -111,8 +117,8 @@ public class Logger {
 	        	this.writer.write(String.format("Current to Right Motor 4,%f,%f,\n", time, HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_4_PDP)));
 	        	
 	        	//Brownout States
-	        	this.writer.write(String.format("Brownout Stage 1 SAFE,%f,%f,\n", time, ControllerPower.getEnabled6V()));
-	        	this.writer.write(String.format("Brownout Stage 2 SAFE,%f,%f,\n", time, ControllerPower.getEnabled5V()));
+	        	this.writer.write(String.format("Brownout Stage 1 SAFE,%f,%f,\n", time, ControllerPower.getEnabled6V() ? ((double)1.0):((double)0.0)));
+	        	this.writer.write(String.format("Brownout Stage 2 SAFE,%f,%f,\n", time, ControllerPower.getEnabled5V() ? ((double)1.0):((double)0.0)));
 	        	
 	        	//Motor Speed Settings
 	        	this.writer.write(String.format("Left CIMs Speed Setting,%f,%f,\n", time, Robot.leftDriveCIMs.get()));
@@ -172,5 +178,7 @@ public class Logger {
 	            }
 	    	}
     	}
+    	System.out.println("Closing logger.");
     }
 }
+
