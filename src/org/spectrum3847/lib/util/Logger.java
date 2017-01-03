@@ -96,7 +96,7 @@ public class Logger {
     public void logAll() {
     	if(this.wantToLog()){
 	        try {
-	        	this.writer.write(String.format("%f", Timer.getFPGATimestamp()));
+	        	this.writer.write(String.format("%f,", Timer.getFPGATimestamp()));
 	        	
 	        	//Voltage, Currents, Brownout States, Motor Speed Settings, 775 Pro enable/disable
 	        	
@@ -104,28 +104,28 @@ public class Logger {
 	        	this.writer.write(String.format("%f", HW.PDP.getVoltage()));
 	        	
 	        	//Currents to motors
-	        	this.writer.write(String.format("%f", HW.PDP.getCurrent(HW.LEFT_DRIVE_MOTOR_1_PDP)));
-	        	this.writer.write(String.format("%f", HW.PDP.getCurrent(HW.LEFT_DRIVE_MOTOR_2_PDP)));
-	        	this.writer.write(String.format("%f", HW.PDP.getCurrent(HW.LEFT_DRIVE_MOTOR_3_PDP)));
-	        	this.writer.write(String.format("%f", HW.PDP.getCurrent(HW.LEFT_DRIVE_MOTOR_4_PDP)));
+	        	this.writer.write(String.format("%f,", HW.PDP.getCurrent(HW.LEFT_DRIVE_MOTOR_1_PDP)));
+	        	this.writer.write(String.format("%f,", HW.PDP.getCurrent(HW.LEFT_DRIVE_MOTOR_2_PDP)));
+	        	this.writer.write(String.format("%f,", HW.PDP.getCurrent(HW.LEFT_DRIVE_MOTOR_3_PDP)));
+	        	this.writer.write(String.format("%f,", HW.PDP.getCurrent(HW.LEFT_DRIVE_MOTOR_4_PDP)));
 	        	
-	        	this.writer.write(String.format("%f", HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_1_PDP)));
-	        	this.writer.write(String.format("%f", HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_2_PDP)));
-	        	this.writer.write(String.format("%f", HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_3_PDP)));
-	        	this.writer.write(String.format("%f", HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_4_PDP)));
+	        	this.writer.write(String.format("%f,", HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_1_PDP)));
+	        	this.writer.write(String.format("%f,", HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_2_PDP)));
+	        	this.writer.write(String.format("%f,", HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_3_PDP)));
+	        	this.writer.write(String.format("%f,", HW.PDP.getCurrent(HW.RIGHT_DRIVE_MOTOR_4_PDP)));
 	        	
 	        	//Brownout States
-	        	this.writer.write(String.format("%f", ControllerPower.getEnabled6V()));
-	        	this.writer.write(String.format("%f", ControllerPower.getEnabled5V()));
+	        	this.writer.write(String.format("%f,", ControllerPower.getEnabled6V()));
+	        	this.writer.write(String.format("%f,", ControllerPower.getEnabled5V()));
 	        	
 	        	//Motor Speed Settings
-	        	this.writer.write(String.format("%f", Robot.leftDriveCIMs.get()));
-	        	this.writer.write(String.format("%f", Robot.leftDrive775.get()));
-	        	this.writer.write(String.format("%f", Robot.rightDriveCIMs.get()));
-	        	this.writer.write(String.format("%f", Robot.rightDrive775.get()));
+	        	this.writer.write(String.format("%f,", Robot.leftDriveCIMs.get()));
+	        	this.writer.write(String.format("%f,", Robot.leftDrive775.get()));
+	        	this.writer.write(String.format("%f,", Robot.rightDriveCIMs.get()));
+	        	this.writer.write(String.format("%f,", Robot.rightDrive775.get()));
 	        	
 	        	//775pro enable/disable
-	        	this.writer.write(String.format("%f", (Robot.drive.get775Enabled() ? 1:0) ));
+	        	this.writer.write(String.format("%f,", (Robot.drive.get775Enabled() ? 1:0) ));
 	        	
 	        	/*
 	            this.writer.write(String.format("%d", new java.util.Date().getTime()));
