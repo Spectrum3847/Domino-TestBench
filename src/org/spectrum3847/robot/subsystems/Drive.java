@@ -96,11 +96,11 @@ public class Drive extends Subsystem {
         throttle = Util.limit(throttle, 1);
         turnPower = Util.limit(turnPower, 1);
         
-        if (Math.abs(throttle) < 0.1){
+        if (Math.abs(throttle) < deadband){
       	  throttle = 0;
         }
         
-        if (Math.abs(turnPower) < 0.1){
+        if (Math.abs(turnPower) < deadband){
       	  turnPower = 0;
         }
 
